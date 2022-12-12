@@ -1,20 +1,21 @@
 #timeline {
     margin: 50px;
     display: flex;
-    width: 900px;
+    width: 1000px;
     height: auto;
-    background-color: white;
     padding: 30px;
     position: relative;
 
     #time-start {
         position: relative;
         left: 0;
+        margin-right: 20px;
     }
 
     #time-end {
         position: relative;
         right: 0;
+        margin-left: 20px;
     }
 
     p {
@@ -23,24 +24,26 @@
 
     .timeline-item {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        position: relative;
-        margin-left: 20px;
-        margin-right: auto;
+        position: absolute;
 
-        .item-start {
-            margin-right: auto;
-        }
-
-        .item-end {
-            margin-left: auto;
+        div {
+            display:flex;
+            justify-content: space-between;
+            width: 100%;
+            .item-start {
+                margin-right: auto;
+            }
+    
+            .item-end {
+                margin-left: auto;
+            }
         }
 
         .bar {
             height: 10px;
             width: 100%;
-            margin-left: 8px;
-            margin-right: 8px;
         }
     }
 }
@@ -51,4 +54,20 @@
 
 .blue {
     background-color: blue;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.green {
+    background-color: green;
+}
+
+#timeline-main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    height: 500px;
 }
