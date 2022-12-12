@@ -39,11 +39,15 @@
   position: relative;
   left: 0;
   margin-right: 20px;
+  border-right: black 2px solid;
+  padding: 10px;
 }
 #timeline #time-end {
   position: relative;
   right: 0;
   margin-left: 20px;
+  border-left: black 2px solid;
+  padding: 10px;
 }
 #timeline p {
   font-size: 2rem;
@@ -86,7 +90,6 @@
   flex-direction: column;
   width: 100%;
   position: relative;
-  height: 500px;
 }
 * {
   font-family: 'Ubuntu', sans-serif;
