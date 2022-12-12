@@ -1,0 +1,54 @@
+#timeline {
+    margin: 50px;
+    display: flex;
+    width: 900px;
+    height: auto;
+    background-color: white;
+    padding: 30px;
+    position: relative;
+
+    #time-start {
+        position: relative;
+        left: 0;
+    }
+
+    #time-end {
+        position: relative;
+        right: 0;
+    }
+
+    p {
+        font-size: 2rem;
+    }
+
+    .timeline-item {
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-left: 20px;
+        margin-right: auto;
+
+        .item-start {
+            margin-right: auto;
+        }
+
+        .item-end {
+            margin-left: auto;
+        }
+
+        .bar {
+            height: 10px;
+            width: 100%;
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+    }
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}

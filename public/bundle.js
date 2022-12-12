@@ -18471,6 +18471,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _components_InputSection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/InputSection */ "./src/components/InputSection.js");
+/* harmony import */ var _components_Timeline__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Timeline */ "./src/components/Timeline.js");
+
 
 
 
@@ -18479,7 +18481,10 @@ __webpack_require__.r(__webpack_exports__);
 function App() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "main-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Timeline Visualizer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_InputSection__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Timeline Visualizer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_InputSection__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Timeline__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    start: 0,
+    end: 100
+  })));
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
@@ -18523,6 +18528,85 @@ var InputSection = function InputSection() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InputSection);
+
+/***/ }),
+
+/***/ "./src/components/Timeline.js":
+/*!************************************!*\
+  !*** ./src/components/Timeline.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _TimelineItems__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TimelineItems */ "./src/components/TimelineItems.js");
+
+
+
+var Timeline = function Timeline(_ref) {
+  var start = _ref.start,
+      end = _ref.end;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    id: "timeline"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    id: "time-start"
+  }, "START"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_TimelineItems__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    id: "time-end"
+  }, "END"));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Timeline);
+
+/***/ }),
+
+/***/ "./src/components/TimelineItems.js":
+/*!*****************************************!*\
+  !*** ./src/components/TimelineItems.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var TimelineItems = function TimelineItems() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "timeline-item",
+    style: {
+      width: '50%'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: "item-start"
+  }, "0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "bar red"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: "item-end"
+  }, "50")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "timeline-item",
+    style: {
+      width: '75%',
+      marginTop: '100px'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: "item-start"
+  }, "0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "bar blue"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: "item-end"
+  }, "75")));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TimelineItems);
 
 /***/ }),
 

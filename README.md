@@ -18,3 +18,6 @@
     c. the react component should take as an input what level its on (as well as start and end)
 3. then from there you can add the simple add and remove events or whatever
 
+
+I think what I need to do is make a separate row and place the items in each row before hand
+
