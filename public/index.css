@@ -1,0 +1,35 @@
+#main-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+#main-container h1 {
+  font-size: 3rem;
+}
+#input-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+#input-section .start-time {
+  width: 200px;
+  background-color: white;
+  color: black;
+  border: none;
+}
+#input-section .submit-button {
+  background-color: #007bff;
+  color: white;
+  height: 55px;
+  width: auto;
+  padding: 10px;
+}
+#input-section .submit-button:hover {
+  background-color: #0064d0;
+}
+* {
+  font-family: 'Ubuntu', sans-serif;
+}
+body {
+  background-color: #cff2ff;
+}
