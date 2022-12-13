@@ -18472,6 +18472,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _components_InputSection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/InputSection */ "./src/components/InputSection.js");
 /* harmony import */ var _components_Timeline__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Timeline */ "./src/components/Timeline.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -18479,11 +18491,133 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function App() {
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default().useState([]),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      items = _React$useState2[0],
+      setItems = _React$useState2[1];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default().useState([]),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      finalItems = _React$useState4[0],
+      setFinal = _React$useState4[1];
+
+  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0___default().useState(0),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      startTotal = _React$useState6[0],
+      setStart = _React$useState6[1];
+
+  var _React$useState7 = react__WEBPACK_IMPORTED_MODULE_0___default().useState(100),
+      _React$useState8 = _slicedToArray(_React$useState7, 2),
+      endTotal = _React$useState8[0],
+      setEnd = _React$useState8[1];
+
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
+    // These would be the starting inputs, as stated in the prompt
+    setItems([{
+      startTime: 0,
+      endTime: 50
+    }, {
+      startTime: 55,
+      endTime: 65
+    }, {
+      startTime: 5,
+      endTime: 75
+    }, {
+      startTime: 40,
+      endTime: 100
+    }]);
+  }, []); // whenever items update, run these as well
+
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
+    startAndEnd();
+    addRows();
+  }, [items]); // calculate the start and end time
+
+  function startAndEnd() {
+    if (items.length > 0) {
+      var startArray = items.sort(function (a, b) {
+        return a.startTime - b.startTime;
+      });
+      setStart(startArray[0].startTime);
+      var endArray = items.sort(function (a, b) {
+        return b.endTime - a.endTime;
+      });
+      setEnd(endArray[0].endTime);
+    }
+  } // add row numbers to each item, which will display them correctly
+
+
+  function addRows() {
+    if (items.length > 0) {
+      var ans = [];
+
+      for (var i = 0; i < items.length; i++) {
+        if (i === 0) {
+          ans.push({
+            startTime: items[i].startTime,
+            endTime: items[i].endTime,
+            row: 0
+          });
+        } else {
+          (function () {
+            var row = 0;
+
+            while (ans.length <= i) {
+              var checkRow = ans.filter(function (item) {
+                return item.row === row;
+              }).sort(function (a, b) {
+                return a.startTime - b.startTime;
+              });
+
+              if (checkRow.length === 0) {
+                ans.push({
+                  startTime: items[i].startTime,
+                  endTime: items[i].endTime,
+                  row: row
+                });
+                break;
+              }
+
+              for (var j = 0; j < checkRow.length; j++) {
+                if (checkRow[j].endTime <= items[i].startTime) {
+                  if (checkRow[j + 1] && checkRow[j + 1].startTime > items[i].endTime) {
+                    continue;
+                  } else {
+                    ans.push({
+                      startTime: items[i].startTime,
+                      endTime: items[i].endTime,
+                      row: row
+                    });
+                    break;
+                  }
+                } else if (j === 0 && checkRow[j].startTime >= items[i].endTime) {
+                  ans.push({
+                    startTime: items[i].startTime,
+                    endTime: items[i].endTime,
+                    row: row
+                  });
+                  break;
+                }
+              }
+
+              row += 1;
+            }
+          })();
+        }
+      }
+
+      setFinal(ans);
+    }
+  }
+
+  console.log(items);
+  console.log(finalItems);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "main-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Timeline Visualizer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_InputSection__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Timeline__WEBPACK_IMPORTED_MODULE_3__["default"], {
     start: 0,
-    end: 100
+    end: 100,
+    finalItems: finalItems
   })));
 }
 
@@ -18580,48 +18714,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var TimelineItems = function TimelineItems() {
+  var objects = [{
+    startTime: 0,
+    endTime: 50,
+    row: 0
+  }, {
+    startTime: 55,
+    endTime: 65,
+    row: 0
+  }, {
+    startTime: 5,
+    endTime: 75,
+    row: 1
+  }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "timeline-main"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "timeline-item",
-    style: {
-      width: '50%',
-      marginTop: '0',
-      left: '0%'
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-    className: "item-start"
-  }, "0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-    className: "item-end"
-  }, "50")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "bar red"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "timeline-item",
-    style: {
-      width: '70%',
-      marginTop: '40px',
-      left: '5%'
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-    className: "item-start"
-  }, "5"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-    className: "item-end"
-  }, "75")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "bar blue"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "timeline-item",
-    style: {
-      width: '10%',
-      marginTop: '0',
-      left: '55%'
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-    className: "item-start"
-  }, "55"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-    className: "item-end"
-  }, "65")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "bar green"
-  }))));
+  }, objects.map(function (item) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "timeline-item",
+      style: {
+        width: "".concat(item.endTime - item.startTime, "%"),
+        marginTop: "".concat(item.row * 40, "px"),
+        left: "".concat(item.startTime, "%")
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: "item-start"
+    }, item.startTime), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: "item-end"
+    }, item.endTime)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "bar green"
+    }));
+  })));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TimelineItems);
