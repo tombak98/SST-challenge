@@ -18525,6 +18525,12 @@ function App() {
     }, {
       startTime: 40,
       endTime: 100
+    }, {
+      startTime: 30,
+      endTime: 130
+    }, {
+      startTime: 0,
+      endTime: 20
     }]);
   }, []); // whenever items update, run these as well
 
@@ -18610,13 +18616,11 @@ function App() {
     }
   }
 
-  console.log(items);
-  console.log(finalItems);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "main-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Timeline Visualizer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_InputSection__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Timeline__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    start: 0,
-    end: 100,
+    start: startTotal,
+    end: endTotal,
     finalItems: finalItems
   })));
 }
@@ -18684,12 +18688,17 @@ __webpack_require__.r(__webpack_exports__);
 
 var Timeline = function Timeline(_ref) {
   var start = _ref.start,
-      end = _ref.end;
+      end = _ref.end,
+      finalItems = _ref.finalItems;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "timeline"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     id: "time-start"
-  }, "START"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_TimelineItems__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+  }, "START"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_TimelineItems__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    finalItems: finalItems,
+    start: start,
+    end: end
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     id: "time-end"
   }, "END"));
 };
@@ -18713,7 +18722,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-var TimelineItems = function TimelineItems() {
+var TimelineItems = function TimelineItems(_ref) {
+  var start = _ref.start,
+      end = _ref.end,
+      finalItems = _ref.finalItems;
   var objects = [{
     startTime: 0,
     endTime: 50,
@@ -18729,13 +18741,14 @@ var TimelineItems = function TimelineItems() {
   }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "timeline-main"
-  }, objects.map(function (item) {
+  }, finalItems === null || finalItems === void 0 ? void 0 : finalItems.map(function (item, idx) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      key: idx,
       className: "timeline-item",
       style: {
-        width: "".concat(item.endTime - item.startTime, "%"),
+        width: "".concat((item.endTime - item.startTime) / (end - start) * 100, "%"),
         marginTop: "".concat(item.row * 40, "px"),
-        left: "".concat(item.startTime, "%")
+        left: "".concat((item.startTime - start) / (end - start) * 100, "%")
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       className: "item-start"

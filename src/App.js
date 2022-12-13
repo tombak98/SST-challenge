@@ -30,7 +30,15 @@ function App(){
             {
                 startTime: 40,
                 endTime: 100
-            }
+            },
+            {
+                startTime: 30,
+                endTime: 130
+            },
+            {
+                startTime: 0,
+                endTime: 20
+            },
         ])
     },[])
 
@@ -102,15 +110,12 @@ function App(){
         }
     }
 
-    console.log(items)
-    console.log(finalItems)
-
     return(
         <>
         <div id="main-container">
             <h1>Timeline Visualizer</h1>
             <InputSection/>
-            <Timeline start={0} end={100} finalItems={finalItems}/>
+            <Timeline start={startTotal} end={endTotal} finalItems={finalItems}/>
         </div>
         </>
 
