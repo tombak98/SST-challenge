@@ -18687,10 +18687,12 @@ var InputSection = function InputSection(_ref) {
 
     if (start >= end) {
       alert('You cannot have a start time that is equal to or greater than the end time');
-    } else if (start === NaN || end === NaN) {
-      alert('You cannot leave the inputs empty');
+    } else if (isNaN(start) || isNaN(end)) {
+      alert('You cannot leave the inputs empty, or you must input numbers');
     } else {
       addItem(start, end);
+      setStart('');
+      setEnd('');
     }
   }
 
@@ -18800,7 +18802,7 @@ var TimelineItems = function TimelineItems(_ref) {
       key: idx,
       className: "timeline-item",
       style: {
-        width: "".concat((item.endTime - item.startTime) / (end - start) * 100, "%"),
+        width: "".concat((item.endTime - item.startTime) / (end - start) * 100 - 0.5, "%"),
         marginTop: "".concat(item.row * 40, "px"),
         left: "".concat((item.startTime - start) / (end - start) * 100, "%")
       }
@@ -18809,7 +18811,7 @@ var TimelineItems = function TimelineItems(_ref) {
     }, item.startTime), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       className: "item-end"
     }, item.endTime)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "bar green"
+      className: "bar blue"
     }));
   })));
 };
