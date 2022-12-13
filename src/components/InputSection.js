@@ -2,12 +2,28 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 
-const InputSection = () => {
+const InputSection = ({addItem}) => {
+
+    const [inputStart, setStart] = React.useState('')
+    const [inputEnd, setEnd] = React.useState('')
+
+    function submitHandler() {
+        let start = Math.floor(parseInt(inputStart))
+        let end = Math.floor(parseInt(inputEnd))
+        if (start >= end) {
+            alert('You cannot have a start time that is equal to or greater than the end time')
+        } else if (start === NaN || end === NaN) {
+            alert('You cannot leave the inputs empty')
+        } else {
+            addItem(start, end)
+        }
+    }
+
     return (
         <div id="input-section">
-            <TextField className="start-time" label="Start Time" variant="outlined"/>
-            <TextField className="start-time" label="End Time" variant="outlined"/>
-            <Button className="submit-button" variant="contiained">ADD EVENT</Button>
+            <TextField value={inputStart} onChange={(e)=>setStart(e.target.value)} className="start-time" label="Start Time" variant="outlined"/>
+            <TextField value={inputEnd} onChange={(e)=>setEnd(e.target.value)} className="start-time" label="End Time" variant="outlined"/>
+            <Button onClick={submitHandler} className="submit-button" variant="contiained">ADD EVENT</Button>
         </div>
     )
 }

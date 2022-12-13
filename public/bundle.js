@@ -18472,6 +18472,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _components_InputSection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/InputSection */ "./src/components/InputSection.js");
 /* harmony import */ var _components_Timeline__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Timeline */ "./src/components/Timeline.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -18522,21 +18530,6 @@ function App() {
     }, {
       startTime: 5,
       endTime: 75
-    }, {
-      startTime: 40,
-      endTime: 100
-    }, {
-      startTime: 30,
-      endTime: 130
-    }, {
-      startTime: 22,
-      endTime: 28
-    }, {
-      startTime: 0,
-      endTime: 20
-    }, {
-      startTime: 35,
-      endTime: 50
     }]);
   }, []); // whenever items update, run these as well
 
@@ -18622,9 +18615,18 @@ function App() {
     }
   }
 
+  function addItem(startTime, endTime) {
+    setItems([].concat(_toConsumableArray(items), [{
+      startTime: startTime,
+      endTime: endTime
+    }]));
+  }
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "main-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Timeline Visualizer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_InputSection__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Timeline__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Timeline Visualizer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_InputSection__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    addItem: addItem
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Timeline__WEBPACK_IMPORTED_MODULE_3__["default"], {
     start: startTotal,
     end: endTotal,
     finalItems: finalItems
@@ -18650,22 +18652,68 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mui_material_TextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/material/TextField */ "./node_modules/@mui/material/esm/TextField/TextField.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/esm/Button/Button.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 
-var InputSection = function InputSection() {
+
+var InputSection = function InputSection(_ref) {
+  var addItem = _ref.addItem;
+
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default().useState(''),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      inputStart = _React$useState2[0],
+      setStart = _React$useState2[1];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default().useState(''),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      inputEnd = _React$useState4[0],
+      setEnd = _React$useState4[1];
+
+  function submitHandler() {
+    var start = Math.floor(parseInt(inputStart));
+    var end = Math.floor(parseInt(inputEnd));
+
+    if (start >= end) {
+      alert('You cannot have a start time that is equal to or greater than the end time');
+    } else if (start === NaN || end === NaN) {
+      alert('You cannot leave the inputs empty');
+    } else {
+      addItem(start, end);
+    }
+  }
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "input-section"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    value: inputStart,
+    onChange: function onChange(e) {
+      return setStart(e.target.value);
+    },
     className: "start-time",
     label: "Start Time",
     variant: "outlined"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    value: inputEnd,
+    onChange: function onChange(e) {
+      return setEnd(e.target.value);
+    },
     className: "start-time",
     label: "End Time",
     variant: "outlined"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    onClick: submitHandler,
     className: "submit-button",
     variant: "contiained"
   }, "ADD EVENT"));

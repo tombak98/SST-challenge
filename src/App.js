@@ -26,26 +26,6 @@ function App(){
             {
                 startTime: 5,
                 endTime: 75,
-            },
-            {
-                startTime: 40,
-                endTime: 100
-            },
-            {
-                startTime: 30,
-                endTime: 130
-            },
-            {
-                startTime: 22,
-                endTime: 28
-            },
-            {
-                startTime: 0,
-                endTime: 20
-            },
-            {
-                startTime: 35,
-                endTime: 50
             }
         ])
     },[])
@@ -118,11 +98,15 @@ function App(){
         }
     }
 
+    function addItem(startTime, endTime) {
+        setItems([...items, {startTime: startTime, endTime: endTime}])
+    }
+
     return(
         <>
         <div id="main-container">
             <h1>Timeline Visualizer</h1>
-            <InputSection/>
+            <InputSection addItem={addItem}/>
             <Timeline start={startTotal} end={endTotal} finalItems={finalItems}/>
         </div>
         </>
