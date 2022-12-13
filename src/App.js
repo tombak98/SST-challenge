@@ -33,7 +33,7 @@ function App(){
             },
             {
                 startTime: 30,
-                endTime: 100
+                endTime: 130
             },
             {
                 startTime: 22,
@@ -43,6 +43,10 @@ function App(){
                 startTime: 0,
                 endTime: 20
             },
+            {
+                startTime: 35,
+                endTime: 50
+            }
         ])
     },[])
 
