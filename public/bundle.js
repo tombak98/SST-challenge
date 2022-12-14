@@ -18472,14 +18472,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _components_InputSection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/InputSection */ "./src/components/InputSection.js");
 /* harmony import */ var _components_Timeline__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Timeline */ "./src/components/Timeline.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -18499,7 +18491,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function App() {
-  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default().useState([]),
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default().useState([{
+    startTime: 0,
+    endTime: 50
+  }, {
+    startTime: 55,
+    endTime: 65
+  }, {
+    startTime: 15,
+    endTime: 75
+  }]),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       items = _React$useState2[0],
       setItems = _React$useState2[1];
@@ -18517,21 +18518,8 @@ function App() {
   var _React$useState7 = react__WEBPACK_IMPORTED_MODULE_0___default().useState(100),
       _React$useState8 = _slicedToArray(_React$useState7, 2),
       endTotal = _React$useState8[0],
-      setEnd = _React$useState8[1];
+      setEnd = _React$useState8[1]; // whenever items update, run these as well
 
-  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
-    // These would be the starting inputs, as stated in the prompt
-    setItems([{
-      startTime: 0,
-      endTime: 50
-    }, {
-      startTime: 55,
-      endTime: 65
-    }, {
-      startTime: 5,
-      endTime: 75
-    }]);
-  }, []); // whenever items update, run these as well
 
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
     startAndEnd();
@@ -18616,12 +18604,20 @@ function App() {
   }
 
   function addItem(startTime, endTime) {
-    setItems([].concat(_toConsumableArray(items), [{
+    var ans = [];
+
+    for (var i = items.length - 1; i >= 0; i--) {
+      ans.push(items[i]);
+    }
+
+    ans.push({
       startTime: startTime,
       endTime: endTime
-    }]));
+    });
+    setItems(ans);
   }
 
+  console.log(items);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "main-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Timeline Visualizer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_InputSection__WEBPACK_IMPORTED_MODULE_2__["default"], {

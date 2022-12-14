@@ -7,28 +7,21 @@ import Timeline from "./components/Timeline";
 
 function App(){
 
-    const [items, setItems] = React.useState([])
+    const [items, setItems] = React.useState([{
+        startTime: 0,
+        endTime: 50,
+    },
+    {
+        startTime: 55,
+        endTime: 65,
+    },
+    {
+        startTime: 15,
+        endTime: 75,
+    }])
     const [finalItems, setFinal] = React.useState([])
     const [startTotal, setStart] = React.useState(0)
     const [endTotal, setEnd] = React.useState(100)
-
-    React.useEffect(()=>{
-        // These would be the starting inputs, as stated in the prompt
-        setItems([
-            {
-                startTime: 0,
-                endTime: 50,
-            },
-            {
-                startTime: 55,
-                endTime: 65,
-            },
-            {
-                startTime: 5,
-                endTime: 75,
-            }
-        ])
-    },[])
 
     // whenever items update, run these as well
     React.useEffect(()=> {
@@ -99,8 +92,15 @@ function App(){
     }
 
     function addItem(startTime, endTime) {
-        setItems([...items, {startTime: startTime, endTime: endTime}])
+        let ans = []
+        for (let i = items.length-1; i >= 0; i--) {
+            ans.push(items[i])
+        }
+        ans.push({startTime: startTime, endTime: endTime})
+        setItems(ans)
     }
+
+    console.log(items)
 
     return(
         <>
