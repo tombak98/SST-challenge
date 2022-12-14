@@ -18782,19 +18782,6 @@ var TimelineItems = function TimelineItems(_ref) {
   var start = _ref.start,
       end = _ref.end,
       finalItems = _ref.finalItems;
-  var objects = [{
-    startTime: 0,
-    endTime: 50,
-    row: 0
-  }, {
-    startTime: 55,
-    endTime: 65,
-    row: 0
-  }, {
-    startTime: 5,
-    endTime: 75,
-    row: 1
-  }];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "timeline-main"
   }, finalItems === null || finalItems === void 0 ? void 0 : finalItems.map(function (item, idx) {

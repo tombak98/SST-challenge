@@ -2,24 +2,6 @@ import React from "react";
 
 const TimelineItems = ({start, end, finalItems}) => {
 
-    const objects = [
-        {
-            startTime: 0,
-            endTime: 50,
-            row: 0
-        },
-        {
-            startTime: 55,
-            endTime: 65,
-            row: 0,
-        },
-        {
-            startTime: 5,
-            endTime: 75,
-            row: 1
-        }
-    ]
-
     return (
         <>
         <div id="timeline-main">
