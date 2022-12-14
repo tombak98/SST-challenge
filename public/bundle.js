@@ -18589,7 +18589,7 @@ function App() {
 
               for (var j = 0; j < checkRow.length; j++) {
                 if (checkRow[j].endTime <= reference[i].startTime) {
-                  if (checkRow[j + 1] && checkRow[j + 1].startTime > reference[i].endTime) {
+                  if (checkRow[j + 1] && checkRow[j + 1].startTime < reference[i].endTime) {
                     continue;
                   } else {
                     ans.push({
