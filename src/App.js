@@ -45,11 +45,15 @@ function App(){
 
     // add row numbers to each item, which will display them correctly
     function addRows() {
+        // first make sure there are items in the state
         if (items.length > 0) {
             let reference = [...items]
+            // sort items by time, to place them correctly
             reference.sort((a,b) => a.time - b.time)
             let ans = []
+            // loop through each item in the array
             for (let i = 0; i < reference.length; i++) {
+                // if its the first item, add it to row 0
                 if (i === 0) {
                     ans.push({
                         startTime: reference[i].startTime,
@@ -57,9 +61,13 @@ function App(){
                         row: 0
                     })
                 } else {
+                    // else, loop through each row and see if it fits in the row.
+                    // if not, then increment row by 1 and keep checking
                     let row = 0
                     while (ans.length <= i) {
+                        // sort each row
                         let checkRow = ans.filter((item)=>item.row === row).sort((a,b)=>a.startTime-b.startTime)
+                        // if nothing existing in the row, add it
                         if (checkRow.length === 0) {
                             ans.push({
                                 startTime: reference[i].startTime,
@@ -68,6 +76,7 @@ function App(){
                             })
                             break
                         }
+                        // loop through each item in the row and see if it can fit
                         for (let j = 0; j < checkRow.length; j++) {
                             if (checkRow[j].endTime <= reference[i].startTime) {
                                 if (checkRow[j+1] && checkRow[j+1].startTime < reference[i].endTime) {
@@ -117,8 +126,6 @@ function App(){
         }
         setItems([...addArray])
     }
-
-    console.log('final items', finalItems)
 
     return(
         <>

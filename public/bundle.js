@@ -18552,15 +18552,18 @@ function App() {
 
 
   function addRows() {
+    // first make sure there are items in the state
     if (items.length > 0) {
-      var reference = _toConsumableArray(items);
+      var reference = _toConsumableArray(items); // sort items by time, to place them correctly
+
 
       reference.sort(function (a, b) {
         return a.time - b.time;
       });
-      var ans = [];
+      var ans = []; // loop through each item in the array
 
       for (var i = 0; i < reference.length; i++) {
+        // if its the first item, add it to row 0
         if (i === 0) {
           ans.push({
             startTime: reference[i].startTime,
@@ -18569,14 +18572,17 @@ function App() {
           });
         } else {
           (function () {
+            // else, loop through each row and see if it fits in the row.
+            // if not, then increment row by 1 and keep checking
             var row = 0;
 
             while (ans.length <= i) {
+              // sort each row
               var checkRow = ans.filter(function (item) {
                 return item.row === row;
               }).sort(function (a, b) {
                 return a.startTime - b.startTime;
-              });
+              }); // if nothing existing in the row, add it
 
               if (checkRow.length === 0) {
                 ans.push({
@@ -18585,7 +18591,8 @@ function App() {
                   row: row
                 });
                 break;
-              }
+              } // loop through each item in the row and see if it can fit
+
 
               for (var j = 0; j < checkRow.length; j++) {
                 if (checkRow[j].endTime <= reference[i].startTime) {
@@ -18642,7 +18649,6 @@ function App() {
     setItems([].concat(addArray));
   }
 
-  console.log('final items', finalItems);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "main-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Timeline Visualizer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_InputSection__WEBPACK_IMPORTED_MODULE_2__["default"], {
