@@ -7,17 +7,21 @@ import Timeline from "./components/Timeline";
 
 function App(){
 
-    const [items, setItems] = React.useState([{
+    const [items, setItems] = React.useState([
+    {
         startTime: 0,
         endTime: 50,
+        time: Date.now()+2
     },
     {
         startTime: 55,
         endTime: 65,
+        time: Date.now()+3
     },
     {
         startTime: 15,
         endTime: 75,
+        time: Date.now()+4
     }])
     const [finalItems, setFinal] = React.useState([])
     const [startTotal, setStart] = React.useState(0)
@@ -42,12 +46,14 @@ function App(){
     // add row numbers to each item, which will display them correctly
     function addRows() {
         if (items.length > 0) {
+            let reference = [...items]
+            reference.sort((a,b) => a.time - b.time)
             let ans = []
-            for (let i = 0; i < items.length; i++) {
+            for (let i = 0; i < reference.length; i++) {
                 if (i === 0) {
                     ans.push({
-                        startTime: items[i].startTime,
-                        endTime: items[i].endTime,
+                        startTime: reference[i].startTime,
+                        endTime: reference[i].endTime,
                         row: 0
                     })
                 } else {
@@ -56,28 +62,28 @@ function App(){
                         let checkRow = ans.filter((item)=>item.row === row).sort((a,b)=>a.startTime-b.startTime)
                         if (checkRow.length === 0) {
                             ans.push({
-                                startTime: items[i].startTime,
-                                endTime: items[i].endTime,
+                                startTime: reference[i].startTime,
+                                endTime: reference[i].endTime,
                                 row: row
                             })
                             break
                         }
                         for (let j = 0; j < checkRow.length; j++) {
-                            if (checkRow[j].endTime <= items[i].startTime) {
-                                if (checkRow[j+1] && checkRow[j+1].startTime > items[i].endTime) {
+                            if (checkRow[j].endTime <= reference[i].startTime) {
+                                if (checkRow[j+1] && checkRow[j+1].startTime > reference[i].endTime) {
                                     continue
                                 } else {
                                     ans.push({
-                                        startTime: items[i].startTime,
-                                        endTime: items[i].endTime,
+                                        startTime: reference[i].startTime,
+                                        endTime: reference[i].endTime,
                                         row: row
                                     })
                                     break
                                 }
-                            } else if (j === 0 && checkRow[j].startTime >= items[i].endTime) {
+                            } else if (j === 0 && checkRow[j].startTime >= reference[i].endTime) {
                                 ans.push({
-                                    startTime: items[i].startTime,
-                                    endTime: items[i].endTime,
+                                    startTime: reference[i].startTime,
+                                    endTime: reference[i].endTime,
                                     row: row
                                 })
                                 break
@@ -87,20 +93,32 @@ function App(){
                     }
                 }
             }
-            setFinal(ans)
+            setFinal([...ans])
         }
     }
 
     function addItem(startTime, endTime) {
-        let ans = []
-        for (let i = items.length-1; i >= 0; i--) {
-            ans.push(items[i])
+        let addArray = []
+        for (let i = 0; i <= items.length; i++) {
+            if (i === items.length) {
+                let newObj = {
+                    startTime: startTime,
+                    endTime: endTime,
+                    time: Date.now()
+                }
+                addArray.push(newObj)
+            } else {
+                addArray.push({
+                    startTime: items[i].startTime,
+                    endTime: items[i].endTime,
+                    time: items[i].time
+                })
+            }
         }
-        ans.push({startTime: startTime, endTime: endTime})
-        setItems(ans)
+        setItems([...addArray])
     }
 
-    console.log(items)
+    console.log('final items', finalItems)
 
     return(
         <>

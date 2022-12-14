@@ -18472,6 +18472,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _components_InputSection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/InputSection */ "./src/components/InputSection.js");
 /* harmony import */ var _components_Timeline__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Timeline */ "./src/components/Timeline.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -18493,13 +18501,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function App() {
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default().useState([{
     startTime: 0,
-    endTime: 50
+    endTime: 50,
+    time: Date.now() + 2
   }, {
     startTime: 55,
-    endTime: 65
+    endTime: 65,
+    time: Date.now() + 3
   }, {
     startTime: 15,
-    endTime: 75
+    endTime: 75,
+    time: Date.now() + 4
   }]),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       items = _React$useState2[0],
@@ -18542,13 +18553,18 @@ function App() {
 
   function addRows() {
     if (items.length > 0) {
+      var reference = _toConsumableArray(items);
+
+      reference.sort(function (a, b) {
+        return a.time - b.time;
+      });
       var ans = [];
 
-      for (var i = 0; i < items.length; i++) {
+      for (var i = 0; i < reference.length; i++) {
         if (i === 0) {
           ans.push({
-            startTime: items[i].startTime,
-            endTime: items[i].endTime,
+            startTime: reference[i].startTime,
+            endTime: reference[i].endTime,
             row: 0
           });
         } else {
@@ -18564,29 +18580,29 @@ function App() {
 
               if (checkRow.length === 0) {
                 ans.push({
-                  startTime: items[i].startTime,
-                  endTime: items[i].endTime,
+                  startTime: reference[i].startTime,
+                  endTime: reference[i].endTime,
                   row: row
                 });
                 break;
               }
 
               for (var j = 0; j < checkRow.length; j++) {
-                if (checkRow[j].endTime <= items[i].startTime) {
-                  if (checkRow[j + 1] && checkRow[j + 1].startTime > items[i].endTime) {
+                if (checkRow[j].endTime <= reference[i].startTime) {
+                  if (checkRow[j + 1] && checkRow[j + 1].startTime > reference[i].endTime) {
                     continue;
                   } else {
                     ans.push({
-                      startTime: items[i].startTime,
-                      endTime: items[i].endTime,
+                      startTime: reference[i].startTime,
+                      endTime: reference[i].endTime,
                       row: row
                     });
                     break;
                   }
-                } else if (j === 0 && checkRow[j].startTime >= items[i].endTime) {
+                } else if (j === 0 && checkRow[j].startTime >= reference[i].endTime) {
                   ans.push({
-                    startTime: items[i].startTime,
-                    endTime: items[i].endTime,
+                    startTime: reference[i].startTime,
+                    endTime: reference[i].endTime,
                     row: row
                   });
                   break;
@@ -18599,25 +18615,34 @@ function App() {
         }
       }
 
-      setFinal(ans);
+      setFinal([].concat(ans));
     }
   }
 
   function addItem(startTime, endTime) {
-    var ans = [];
+    var addArray = [];
 
-    for (var i = items.length - 1; i >= 0; i--) {
-      ans.push(items[i]);
+    for (var i = 0; i <= items.length; i++) {
+      if (i === items.length) {
+        var newObj = {
+          startTime: startTime,
+          endTime: endTime,
+          time: Date.now()
+        };
+        addArray.push(newObj);
+      } else {
+        addArray.push({
+          startTime: items[i].startTime,
+          endTime: items[i].endTime,
+          time: items[i].time
+        });
+      }
     }
 
-    ans.push({
-      startTime: startTime,
-      endTime: endTime
-    });
-    setItems(ans);
+    setItems([].concat(addArray));
   }
 
-  console.log(items);
+  console.log('final items', finalItems);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "main-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Timeline Visualizer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_InputSection__WEBPACK_IMPORTED_MODULE_2__["default"], {
